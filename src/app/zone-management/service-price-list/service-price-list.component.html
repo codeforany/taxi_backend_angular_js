@@ -1,0 +1,117 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" class="data-container mat-elevation-z3">
+    <h3>Zone Service Price Management</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Zone </mat-label>
+                <mat-select placeholder="Select Zone" name="zone_id" fxFlex="1 1 auto" [(ngModel)]="selectZoneObj"
+                    (selectionChange)="onSelectZone($event.value)">
+                    <mat-option *ngFor="let zObj of zoneArr" [value]="zObj">
+                        {{
+                        zObj.zone_name
+                        }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Service </mat-label>
+                <mat-select placeholder="Select Service" name="service_id" fxFlex="1 1 auto" [(ngModel)]="selectServiceObj"
+                    (selectionChange)="onSelectService($event.value)">
+                    <mat-option *ngFor="let sObj of serviceArr" [value]="sObj">
+                        {{
+                        sObj.service_name
+                        }}
+                    </mat-option>
+            
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center stretch" style="margin: 10px;">
+    <h3>Service Price List</h3>
+
+    <div class="mat-elevation-z8">
+        <div fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="15px">
+            <mat-form-field>
+                <input matInput #txtVal (keyup)="applyFilter(txtVal.value)" placeholder="Search here">
+            </mat-form-field>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" width="100%" matSort>
+            <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="zone_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.zone_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="service_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.service_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="base_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.base_charge}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="km_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Per KM Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.per_km_charge}} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="min_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Per Min Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.per_min_charge}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="booking_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.booking_charge}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="minimum_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.mini_fair}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="minimum_km">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Minimum KM </th>
+                <td mat-cell *matCellDef="let element"> {{element.mini_km}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cancel_charge">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cancel Charge </th>
+                <td mat-cell *matCellDef="let element"> {{element.cancel_charge}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" fxLayoutGap="10px">
+                    <button mat-mini-fab color="primary"
+                        (click)="openDialogEdit(element)"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="warn" (click)="deleteData(element)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[20,50,100]"></mat-paginator>
+
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="mat-elevation-z10" >
+    <span>Edit Document</span>
+    <span fxFlex="1 1 auto"></span>
+    <button mat-icon-button [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Document Name </mat-label>
+            <input matInput placeholder="Document Name" name="doc_name" [(ngModel)]="editObj.name">
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Document Type </mat-label>
+            <mat-select placeholder="Document Type" name="doc_type" fxFlex="1 1 auto" [(ngModel)]="editObj.type">
+                <mat-option *ngFor="let type of documentList" [value]="type.value">
+                    {{
+                    type.name
+                    }}
+                </mat-option>
+        
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end start">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="updateData()" >Update</button>
+</div>

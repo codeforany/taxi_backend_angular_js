@@ -1,0 +1,138 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" class="data-container mat-elevation-z3">
+    <h3>Zone Wise Service Management</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Zone Name </mat-label>
+                <input matInput placeholder="Zone Name" name="zone_name" [(ngModel)]="zoneName">
+            </mat-form-field>  
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> City Name </mat-label>
+                <input matInput placeholder="City Name" name="city_name" [(ngModel)]="cityName">
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Tax (%) </mat-label>
+                <input matInput type="number" placeholder="Tax (%)" name="tax_val" [(ngModel)]="taxVal">
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="apiLoaded | async">
+            <google-map [options]="options" width="100%"></google-map>
+        </div>
+
+        <h3> Zone wise Service ON Off </h3>
+
+        <div fxLayout="column" fxLayoutGap="10px" >
+            <mat-checkbox *ngFor="let service of serviceList" fxFlex="1 1 auto" [checked]="service.isSelect" name="servicelist" color="primary" (change)="serviceCheckClick(service, $event)" >{{ service.service_name }}</mat-checkbox>
+        </div>
+    </div>
+</div>
+
+<section class="table-container mat-elevation-z3">
+    <table mat-table [dataSource]="dataSource">
+       
+        <ng-container matColumnDef="serviceName" sticky>
+            <th mat-header-cell *matHeaderCellDef> Service Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.service_name}} </td>
+        </ng-container>
+    
+        
+        <ng-container matColumnDef="baseCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Base Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;"> 
+                <mat-form-field appearance="fill" >
+                    <input type="number" matInput placeholder="0.00" name="{{'base_charge'+ i}}" [(ngModel)]="element.base_charge">
+                </mat-form-field>
+            </td>
+        </ng-container>
+       
+       
+        <ng-container matColumnDef="perKmCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Per Km Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0.00" name="{{'per_km_charge'+ i}}"
+                        [(ngModel)]="element.per_km_charge">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="perMinCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Per Min Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0.00" name="{{'per_minute_charge'+ i}}"
+                        [(ngModel)]="element.per_minute_charge">
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="perBookingCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Per Booking Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0.00" name="{{'booking_charge'+ i}}"
+                        [(ngModel)]="element.booking_charge">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+
+        <!-- 'documentName', 'carDocument' -->
+
+        <ng-container matColumnDef="perMinimumCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Minimum Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0.00" name="{{'minimum_fair'+ i}}"
+                        [(ngModel)]="element.minimum_fair">
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="minimumKm">
+            <th mat-header-cell *matHeaderCellDef> ($)Minimum Km </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0" name="{{'minimum_km'+ i}}"
+                        [(ngModel)]="element.minimum_km">
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="cancelCharge">
+            <th mat-header-cell *matHeaderCellDef> ($)Cancel Charge </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <mat-form-field appearance="fill">
+                    <input type="number" matInput placeholder="0.00" name="{{'cancel_charge'+ i}}"
+                        [(ngModel)]="element.cancel_charge">
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="documentName">
+            <th mat-header-cell *matHeaderCellDef> Document Name </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                    <div fxLayout="column" fxLayoutGap="10px">
+                        <mat-checkbox *ngFor="let document of element.document_array; let j = index;" fxFlex="1 1 auto" [checked]="document.isSelect" name="{{'document_charge'+ i + '_' + j}}"
+                            color="primary" (change)="serviceDocumentCheckedClick(element,document , $event)">{{ document.name }}</mat-checkbox>
+                    </div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="carDocument">
+            <th mat-header-cell *matHeaderCellDef> Car Document </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <mat-checkbox *ngFor="let document of element.car_document_array; let j = index;" fxFlex="1 1 auto"
+                        [checked]="document.isSelect" name="{{'car_document_charge'+ i + '_' + j}}" color="primary"
+                        (change)="serviceDocumentCheckedClick(element,document , $event)">{{ document.name }}</mat-checkbox>
+                </div>
+            </td>
+        </ng-container>
+       
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <button mat-raised-button color="primary" (click)="createZone()"> ADD</button>
+    </div>
+</section>
+
+

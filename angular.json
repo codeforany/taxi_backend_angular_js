@@ -16,6 +16,14 @@
             "outputPath": "dist/taxt-backend",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "moment",
+              "moment-timezone",
+              "rxjs",
+              "rxjs-compat",
+              "socket.io-client",
+              "socket.io-parser"
+            ],
             "polyfills": [
               "zone.js"
             ],
@@ -25,6 +33,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -87,6 +96,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": []

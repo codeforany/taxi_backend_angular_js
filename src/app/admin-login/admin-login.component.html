@@ -1,0 +1,21 @@
+<div class="data-view">
+    <div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 10%;" fxLayoutGap="10px">
+        <form >
+            <div fxLayout="column" fxLayoutAlign="center center" class="data-container mat-elevation-z10">
+                <h2>Login</h2>
+                <mat-form-field fxFlex="1 1 auto" style="width: 90%;">
+                    <mat-icon matPrefix>perm_identity</mat-icon>
+                    <input matInput placeholder="User Email" [(ngModel)]="userName" name="user_name">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="1 1 auto" style="width: 90%;">
+                    <mat-icon matPrefix>lock_outline</mat-icon>
+                    <input type="password" matInput placeholder="Password" [(ngModel)]="password" name="user_password">
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" (click)="login()">Login</button>
+
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-drawer-container class="app-container"  autosize>
+        <mat-drawer #drawer mode="side">
+            <mat-accordion>
+                <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Dashboard
+                        </mat-panel-title>
+                   
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item href="/" >{{ "Home" }}</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            User Management
+                        </mat-panel-title>
+                        
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item href="/#/user-list/">{{ "List" }}</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Driver Management
+                        </mat-panel-title>
+                
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item href="/#/driver-list/">{{ "List" }}</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Zone Management
+                        </mat-panel-title>
+                
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item href="/#/zone-list/">{{ "List" }}</a>
+                        <a mat-list-item href="/#/zone-add/">{{ "ADD" }}</a>
+                        <a mat-list-item href="/#/zone-service-price/">{{ "Price List" }}</a>
+                       
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Data Management
+                        </mat-panel-title>
+                
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <!-- -->
+                        <a mat-list-item href="/#/service-list/" >{{ "Service List" }}</a>
+                        <a mat-list-item href="/#/document-list/" >{{ "Document List" }}</a>
+                        <a mat-list-item href="/" >{{ "Cars Brands" }}</a>
+                        <a mat-list-item href="/" >{{ "Cars Model" }}</a>
+                        <a mat-list-item href="/" >{{ "Cars Series" }}</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+            
+        </mat-drawer>
+    
+        <section class="app-sidenav-content">
+            
+            <mat-toolbar color="primary">
+                <button mat-icon-button class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <span>Taxi Backend</span>
+                <span class="app-spacer"></span>
+                <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                    <mat-icon>share</mat-icon>
+                </button>
+            </mat-toolbar>
+            
+            <router-outlet></router-outlet>
+        </section>
+    
+    </mat-drawer-container>
+
+</section>

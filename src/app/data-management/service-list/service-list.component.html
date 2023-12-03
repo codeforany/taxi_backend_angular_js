@@ -1,0 +1,135 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" class="data-container mat-elevation-z3">
+    <h3>Service Management</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Service Name </mat-label>
+                <input matInput placeholder="Service Name" name="service_name" [(ngModel)]="newObj.service_name">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Description </mat-label>
+                <input matInput placeholder="Description" name="service_description" [(ngModel)]="newObj.description">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Icon </mat-label>
+            
+                <input name="serviceIconFile" type="file" hidden #iconImage  (change)="onIconChange($event)">
+            
+                <input matInput placeholder="Icon" name="service_icon" [(ngModel)]="iconImageName" disabled>
+            
+                <button matSuffix mat-mini-fab color="primary" (click)="iconImage.click()">
+                    <mat-icon class="material-icons">attach_file</mat-icon>
+                </button>
+            </mat-form-field>
+            
+            
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Top Icon </mat-label>
+            
+                <input name="serviceTopIconFile" type="file" hidden #topIconImage
+                    (change)="onTopIconChange($event)">
+            
+                <input matInput placeholder="Top Icon" name="service_top_icon" [(ngModel)]="topIconImageName" disabled>
+            
+                <button matSuffix mat-mini-fab color="primary" (click)="topIconImage.click()">
+                    <mat-icon class="material-icons">attach_file</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Seat </mat-label>
+                <input matInput type="number" placeholder="Seat" name="service_seat" [(ngModel)]="newObj.seat">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Color </mat-label>
+                <input matInput placeholder="Color" name="service_color" [(ngModel)]="newObj.color">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Gender </mat-label>
+                <input matInput placeholder="Gender" name="service_gender" [(ngModel)]="newObj.gender">
+            </mat-form-field>
+
+            
+
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <button mat-raised-button color="primary" (click)="addData()"> ADD</button>
+        </div>
+
+
+    </div>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center stretch" style="margin: 10px;">
+    <h3>Service List</h3>
+
+    <div class="mat-elevation-z8">
+        <div fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="15px">
+            <mat-form-field>
+                <input matInput #txtVal (keyup)="applyFilter(txtVal.value)" placeholder="Search here">
+            </mat-form-field>
+        </div>
+        <!-- 'no', 'name', 'description', 'seat', 'color', 'icon', 'top_icon', 'gender', 'action' -->
+        <table mat-table [dataSource]="dataSource" width="100%" matSort>
+            <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.service_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="seat">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> No. Seat </th>
+                <td mat-cell *matCellDef="let element"> {{element.seat}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="color">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+                <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
+                <td mat-cell *matCellDef="let element">  <img *ngIf="element.icon != ''" src="{{element.icon}}" fxFlex >  </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="top_icon">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Top Icon </th>
+                <td mat-cell *matCellDef="let element"> <img *ngIf="element.top_icon != ''" src="{{element.top_icon}}" fxFlex> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" fxLayoutGap="10px">
+                    <button mat-mini-fab color="primary"
+                        (click)="openDialogEdit(element)"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="warn" (click)="deleteData(element)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[20,50,100]"></mat-paginator>
+
+    </div>
+
+</div>

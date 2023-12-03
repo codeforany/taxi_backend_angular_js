@@ -1,0 +1,22 @@
+
+.app {
+    height: 98vh;
+}
+
+.app-container {
+    
+    height: 100%;
+   
+}
+
+.app-sidenav-content {
+    flex-flow: inherit;
+    flex-direction: row;
+    height: max-content;
+}
+
+
+.app-spacer {
+    flex: 1 1 auto;
+}
+

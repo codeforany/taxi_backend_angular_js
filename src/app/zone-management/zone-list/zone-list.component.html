@@ -1,0 +1,64 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" style="margin: 10px;">
+    <h3>Zone List</h3>
+
+    <div class="mat-elevation-z8">
+        <div fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="15px">
+            <mat-form-field>
+                <input matInput #txtVal (keyup)="applyFilter(txtVal.value)" placeholder="Search here">
+            </mat-form-field>
+        </div>
+        <!-- 'no', 'name', 'city', 'tax', 'service_name', 'document_name', 'car_document', 'action' -->
+        <table mat-table [dataSource]="dataSource" width="100%" matSort>
+            <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.zone_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> City Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tax">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tax </th>
+                <td mat-cell *matCellDef="let element"> {{element.tax}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="service_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.service_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="document_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Personal Doc </th>
+                <td mat-cell *matCellDef="let element"> {{element.document_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="car_document">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Car Document  </th>
+                <td mat-cell *matCellDef="let element"> {{element.car_document}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" fxLayoutGap="10px">
+                    <button mat-mini-fab color="primary"
+                       [routerLink] = "['/zone-edit', element.zone_id ]" routerLinkActive="active" ><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="warn" (click)="deleteData(element)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[20,50,100]"></mat-paginator>
+
+    </div>
+
+</div>

@@ -1,0 +1,35 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" class="data-container mat-elevation-z3">
+    <h3>Zone Edit</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Zone Name </mat-label>
+                <input matInput placeholder="Zone Name" name="zone_name" [(ngModel)]="zoneObj.zone_name">
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> City Name </mat-label>
+                <input matInput placeholder="City Name" name="city_name" [(ngModel)]="zoneObj.city">
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Tax (%) </mat-label>
+                <input matInput type="number" placeholder="Tax (%)" name="tax_val" [(ngModel)]="zoneObj.tax">
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="apiLoaded | async">
+            <google-map [options]="options" width="100%"></google-map>
+        </div>
+
+        <h3> Zone wise Service ON Off </h3>
+
+        <div fxLayout="column" fxLayoutGap="10px">
+            <mat-checkbox *ngFor="let service of serviceList" fxFlex="1 1 auto" [checked]="service.isSelect"
+                name="servicelist" color="primary" (change)="serviceCheckClick(service, $event)">{{ service.service_name
+                }}</mat-checkbox>
+        </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+                <button mat-raised-button color="primary" (click)="editZone()"> Submit</button>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<mat-toolbar color="primary" class="mat-elevation-z10">
+    <span>Edit Service</span>
+    <span fxFlex="1 1 auto"></span>
+    <button mat-icon-button [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Service Name </mat-label>
+            <input matInput placeholder="Service Name" name="service_name" [(ngModel)]="editObj.service_name">
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Description </mat-label>
+            <input matInput placeholder="Description" name="service_description" [(ngModel)]="editObj.description">
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Icon </mat-label>
+        
+            <input name="serviceIconFile" type="file" hidden #iconImage (change)="onIconChange($event)">
+        
+            <input matInput placeholder="Icon" name="service_icon" [(ngModel)]="iconImageName" disabled>
+        
+            <button matSuffix mat-mini-fab color="primary" (click)="iconImage.click()">
+                <mat-icon class="material-icons">attach_file</mat-icon>
+            </button>
+        </mat-form-field>
+        
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Top Icon </mat-label>
+        
+            <input name="serviceTopIconFile" type="file" hidden #topIconImage (change)="onTopIconChange($event)">
+        
+            <input matInput placeholder="Top Icon" name="service_top_icon" [(ngModel)]="topIconImageName" disabled>
+        
+            <button matSuffix mat-mini-fab color="primary" (click)="topIconImage.click()">
+                <mat-icon class="material-icons">attach_file</mat-icon>
+            </button>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Seat </mat-label>
+            <input matInput type="number" placeholder="Seat" name="service_seat" [(ngModel)]="editObj.seat">
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Color </mat-label>
+            <input matInput placeholder="Color" name="service_color" [(ngModel)]="editObj.color">
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" fxFlex="1 1 auto">
+            <mat-label> Gender </mat-label>
+            <input matInput placeholder="Gender" name="service_gender" [(ngModel)]="editObj.gender">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end start">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="updateData()">Update</button>
+</div>
