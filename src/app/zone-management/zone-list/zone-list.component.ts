@@ -17,7 +17,7 @@ export class ZoneListComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['no', 'name', 'city', 'tax', 'service_name', 'document_name', 'car_document', 'action']
+  displayedColumns: string[] = ['no', 'name', 'city', 'tax', 'action']
   listArray: Array<ZoneList> = [];
   dataSource: MatTableDataSource<ZoneList> = new MatTableDataSource<ZoneList>();
 

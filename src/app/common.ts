@@ -34,7 +34,29 @@ export class Common {
     public static svEditZone = Common.baseUrl + "admin/zone_edit";
     public static svZoneServicePrice = Common.baseUrl + "admin/zone_price_list";
     public static svZoneServiceList = Common.baseUrl + "admin/zone_service_list";
+    public static svDeleteServicePrice = Common.baseUrl + "admin/zone_price_delete";
+    public static svEditServicePrice = Common.baseUrl + "admin/zone_price_edit";
+    public static svZoneServiceDocument = Common.baseUrl + "admin/zone_document_list";
+    public static svEditServiceDocument = Common.baseUrl + "admin/zone_document_edit";
 
+    //TODO: Car  Api
+    public static svAddCar = Common.baseUrl + "admin/add_car";
+    public static svListBrand = Common.baseUrl + "brand_list";
+    public static svListModel = Common.baseUrl + "model_list";
+    public static svListSeries = Common.baseUrl + "series_list";
+
+    public static svListCarBrand = Common.baseUrl + "admin/brand_list";
+    public static svApprovedBrand = Common.baseUrl + "admin/brand_approved";
+    public static svDeleteBrand = Common.baseUrl + "admin/brand_delete";
+
+    public static svListCarModel = Common.baseUrl + "admin/model_list";
+    public static svApprovedModel = Common.baseUrl + "admin/model_approved";
+    public static svDeleteModel = Common.baseUrl + "admin/model_delete";
+
+    public static svListCarSeries = Common.baseUrl + "admin/series_list";
+    public static svApprovedSeries = Common.baseUrl + "admin/series_approved";
+    public static svDeleteSeries = Common.baseUrl + "admin/series_delete";
+    
 
     public static accessToken: string|null = localStorage.getItem("auth_token");
 

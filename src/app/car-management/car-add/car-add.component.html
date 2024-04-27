@@ -1,0 +1,79 @@
+<div fxLayout="column" fxLayoutAlign="center stretch" class="data-container mat-elevation-z3">
+    <h3>Documents Management</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            
+            <mat-form-field appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Car Brand </mat-label>
+                <mat-select placeholder="Car Brand" name="brand_select" fxFlex="1 1 auto" [(ngModel)]="selectBrandId"
+                    (selectionChange)="onBrandChange($event.value)">
+                    <mat-option *ngFor="let brand of brandArr" [value]="brand.brand_id">
+                        {{
+                        brand.brand_name
+                        }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field *ngIf="isOther == 1" appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Brand Name </mat-label>
+                <input matInput placeholder="Enter Car Brand Name" name="brand_name" [(ngModel)]="txtBrand">
+            </mat-form-field>
+
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        
+            <mat-form-field *ngIf="isOther == 0 || isOther == 2 || isOther == 3 " appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Car Model </mat-label>
+                <mat-select placeholder="Car Model" name="model_select" fxFlex="1 1 auto" [(ngModel)]="selectModelId"
+                    (selectionChange)="onModelChange($event.value)">
+                    <mat-option *ngFor="let model of modelArr" [value]="model.model_id">
+                        {{
+                        model.model_name
+                        }}
+                    </mat-option>
+        
+                </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field *ngIf="isOther == 1 || isOther == 2 " appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Model Name </mat-label>
+                <input matInput placeholder="Enter Car Model Name" name="model_name" [(ngModel)]="txtModel">
+            </mat-form-field>
+        
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        
+            <mat-form-field *ngIf="isOther == 0 || isOther == 3 " appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Car Series </mat-label>
+                <mat-select placeholder="Car Series" name="series_select" fxFlex="1 1 auto" [(ngModel)]="selectSeriesId"
+                    (selectionChange)="onModelChange($event.value)">
+                    <mat-option *ngFor="let series of seriesArr" [value]="series.series_id">
+                        {{
+                        series.series_name
+                        }}
+                    </mat-option>
+        
+                </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field *ngIf="isOther == 1 || isOther == 2 || isOther == 3 " appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Series Name </mat-label>
+                <input matInput placeholder="Enter Car Series Name" name="series_name" [(ngModel)]="txtSeries">
+            </mat-form-field>
+        
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <mat-form-field *ngIf="isOther == 1 || isOther == 2 || isOther == 3 " appearance="fill" fxFlex="1 1 auto">
+                <mat-label> Seat </mat-label>
+                <input matInput placeholder="Enter Car Seat" name="seat_name" [(ngModel)]="txtSeat">
+            </mat-form-field>
+        
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+            <button mat-raised-button color="primary" (click)="addCar()"> ADD</button>
+        </div>
+    </div>
+</div>
+

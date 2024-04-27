@@ -132,7 +132,6 @@ export class ZoneAddComponent implements OnInit {
         docObj.isSelect = event.checked;
     }
 
-
     getList() {
 
         this.webService.action(Common.svListServiceDoc, {}, true).then((responseObj: any) => {

@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import  {FlexLayoutModule} from '@angular/flex-layout';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -50,6 +50,14 @@ import { ZoneListComponent } from './zone-management/zone-list/zone-list.compone
 import { ZoneAddComponent } from './zone-management/zone-add/zone-add.component';
 import { ZoneEditComponent } from './zone-management/zone-edit/zone-edit.component';
 import { ServicePriceListComponent } from './zone-management/service-price-list/service-price-list.component';
+import { ServicePriceEditComponent } from './zone-management/service-price-edit/service-price-edit.component';
+import { ServiceDocumentListComponent } from './zone-management/service-document-list/service-document-list.component';
+import { ServiceDocumentEditComponent } from './zone-management/service-document-edit/service-document-edit.component';
+import { CarAddComponent } from './car-management/car-add/car-add.component';
+import { BrandListComponent } from './car-management/brand-list/brand-list.component';
+import { ModelListComponent } from './car-management/model-list/model-list.component';
+import { SeriesListComponent } from './car-management/series-list/series-list.component';
+import { DriverDetailComponent } from './driver-management/driver-detail/driver-detail.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +75,14 @@ import { ServicePriceListComponent } from './zone-management/service-price-list/
     ZoneListComponent,
     ZoneEditComponent,
     ServicePriceListComponent,
+    ServicePriceEditComponent,
+    ServiceDocumentListComponent,
+    ServiceDocumentEditComponent,
+    CarAddComponent,
+    BrandListComponent,
+    ModelListComponent,
+    SeriesListComponent,
+    DriverDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +117,7 @@ import { ServicePriceListComponent } from './zone-management/service-price-list/
     MatNativeDateModule,
     MatFormFieldModule,
     MatProgressBarModule,
+    MatSlideToggleModule,
     MatSidenavModule, NgIf, MatButtonModule,
     CommonModule,
     GoogleMapsModule,

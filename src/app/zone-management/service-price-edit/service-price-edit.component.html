@@ -1,0 +1,52 @@
+<mat-toolbar color="primary" class="mat-elevation-z10">
+    <span>Edit Service Price</span>
+    <span fxFlex="1 1 auto"></span>
+    <button mat-icon-button [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Base Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="base_charge" [(ngModel)]="editObj.base_charge">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Per Km Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="per_km_charge" [(ngModel)]="editObj.per_km_charge">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Per Min Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="per_min_charge" [(ngModel)]="editObj.per_min_charge">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Booking Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="booking_charge" [(ngModel)]="editObj.booking_charge">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Minimum Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="mini_fair" [(ngModel)]="editObj.mini_fair">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Minimum Km</mat-label>
+            <input type="number" matInput placeholder="0" name="mini_km" [(ngModel)]="editObj.mini_km">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> ($)Cancel Charge</mat-label>
+            <input type="number" matInput placeholder="0.00" name="cancel_charge" [(ngModel)]="editObj.cancel_charge">
+        </mat-form-field>
+    
+    </div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end start">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="updateData()">Update</button>
+</div>

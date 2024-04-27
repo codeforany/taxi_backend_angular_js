@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="mat-elevation-z10">
+    <span>Edit Service Document</span>
+    <span fxFlex="1 1 auto"></span>
+    <button mat-icon-button [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+        <h3> Personal Document: </h3>
+        <div fxLayout="column" fxLayoutGap="10px">
+            <mat-checkbox *ngFor="let document of personalDocumentArr; let j = index;" fxFlex="1 1 auto"
+                [checked]="document.isSelect" name="{{'document_charge'+ '_' + j}}" color="primary"
+                (change)="serviceDocumentCheckedClick(document , $event)"
+                >{{ document.name }}</mat-checkbox>
+        </div>
+
+        <h3> Cars Documents:</h3>
+        <div fxLayout="column" fxLayoutGap="10px">
+            <mat-checkbox *ngFor="let document of carDocumentArr; let j = index;" fxFlex="1 1 auto"
+                [checked]="document.isSelect" name="{{'car_document_charge'+ '_' + j}}" color="primary"
+                (change)="serviceDocumentCheckedClick(document , $event)"
+                >{{ document.name }}</mat-checkbox>
+        </div>
+
+    </div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end start">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="updateData()">Update</button>
+</div>

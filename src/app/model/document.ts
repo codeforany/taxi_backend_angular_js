@@ -5,6 +5,6 @@ export class Document {
         public type: number = 1,
         public isSelect: boolean = false,
     ){
-
+        
     }
 }

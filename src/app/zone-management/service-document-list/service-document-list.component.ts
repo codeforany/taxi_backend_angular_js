@@ -1,4 +1,3 @@
-import { ServicePriceEditComponent } from './../service-price-edit/service-price-edit.component';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,16 +6,17 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Common } from 'src/app/common';
 import { Service } from 'src/app/model/service';
+import { ZoneDocument } from 'src/app/model/zone-document';
 import { ZoneList } from 'src/app/model/zone-list';
-import { ZonePrice } from 'src/app/model/zone-price';
 import { WebService } from 'src/app/web.service';
+import { ServiceDocumentEditComponent } from '../service-document-edit/service-document-edit.component';
 
 @Component({
-  selector: 'app-service-price-list',
-  templateUrl: './service-price-list.component.html',
-  styleUrls: ['./service-price-list.component.css']
+  selector: 'app-service-document-list',
+  templateUrl: './service-document-list.component.html',
+  styleUrls: ['./service-document-list.component.css']
 })
-export class ServicePriceListComponent {
+export class ServiceDocumentListComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -28,11 +28,11 @@ export class ServicePriceListComponent {
 
   zoneArr: Array<ZoneList> = [];
   serviceArr: Array<Service> = [];
+  documentArr: Array<Document> = [];
 
-
-  displayedColumns: string[] = ['no', 'zone_name', 'service_name', 'base_charge', 'km_charge', 'min_charge', 'booking_charge', 'minimum_charge', 'minimum_km', 'cancel_charge', 'action']
-  listArray: Array<ZonePrice> = [];
-  dataSource: MatTableDataSource<ZonePrice> = new MatTableDataSource<ZonePrice>();
+  displayedColumns: string[] = ['no', 'zone_name', 'service_name', 'personDocument', 'carDocument', 'action']
+  listArray: Array<ZoneDocument> = [];
+  dataSource: MatTableDataSource<ZoneDocument> = new MatTableDataSource<ZoneDocument>();
 
 
   constructor(private webService: WebService, public snackBar: MatSnackBar, public dialog: MatDialog) {
@@ -49,7 +49,7 @@ export class ServicePriceListComponent {
     this.dataSource.sort = this.sort;
   }
 
-  
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -63,17 +63,20 @@ export class ServicePriceListComponent {
     });
   }
 
-  
 
-  openDialogEdit(obj: ZonePrice) {
-    const dialogRef = this.dialog.open(ServicePriceEditComponent, {
+
+  openDialogEdit(obj: ZoneDocument) {
+    const dialogRef = this.dialog.open(ServiceDocumentEditComponent, {
       width: '400px',
-      data: obj
+      data: {
+        'edit': obj,
+        'doc': this.documentArr,
+      }
     })
     dialogRef.afterClosed().subscribe((updateInfo) => {
       Common.Dlog(updateInfo);
       if (updateInfo) {
-        const index = this.listArray.findIndex(item => item.price_id == obj.price_id);
+        const index = this.listArray.findIndex(item => item.zone_doc_id == updateInfo.zone_doc_id);
         this.listArray[index] = updateInfo;
         this.dataSource = new MatTableDataSource(this.listArray);
         this.dataSource.paginator = this.paginator;
@@ -82,19 +85,6 @@ export class ServicePriceListComponent {
     })
   }
 
-  deleteData(obj: ZonePrice) {
-    this.webService.action(Common.svDeleteServicePrice, { "price_id": obj.price_id, "zone_id": obj.zone_id, "service_id": obj.service_id  }, true).then((responseObj: any) => {
-      if (responseObj.status == 1) {
-        this.listArray = this.listArray.filter(item => item.price_id != obj.price_id);
-        this.dataSource = new MatTableDataSource(this.listArray);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.openSnackBar("service price deleted successfully");
-      } else {
-        this.openSnackBar(responseObj.message);
-      }
-    })
-  }
 
 
   onSelectZone(zObj: ZoneList) {
@@ -110,16 +100,24 @@ export class ServicePriceListComponent {
     this.getList();
   }
 
+  clear(){
+    this.zone_id = "";
+    this.service_id = "";
+    this.selectZoneObj = new ZoneList();
+    this.selectServiceObj = new Service();
+    this.getList();
+  }
 
-  getServiceList(){
 
-    
+  getServiceList() {
+
+
     this.webService.action(Common.svZoneServiceList, {}, true).then((responseObj: any) => {
 
       Common.Dlog(responseObj);
       if (responseObj.status == 1) {
-          this.zoneArr =  responseObj.payload.zone_list;
-          this.serviceArr = responseObj.payload.service_list;
+        this.zoneArr = responseObj.payload.zone_list;
+        this.serviceArr = responseObj.payload.service_list;
       }
 
     })
@@ -138,7 +136,7 @@ export class ServicePriceListComponent {
     }
 
 
-    this.webService.action(Common.svZoneServicePrice, paraObj, true).then((responseObj: any) => {
+    this.webService.action(Common.svZoneServiceDocument, paraObj, true).then((responseObj: any) => {
 
       Common.Dlog(responseObj);
       if (responseObj.status == 1) {
@@ -147,6 +145,7 @@ export class ServicePriceListComponent {
         this.listArray = [];
         this.openSnackBar(responseObj.message);
       }
+      this.documentArr = responseObj.document_list;
 
       this.dataSource = new MatTableDataSource(this.listArray);
       this.dataSource.paginator = this.paginator;
